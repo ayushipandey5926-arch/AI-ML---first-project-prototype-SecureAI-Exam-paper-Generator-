@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ paper.exam_id }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background: #fff;
+            color: #111;
+            line-height: 1.5;
+        }
+
+        .header {
+            border-bottom: 2px solid #222;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .meta {
+            color: #555;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        h2 {
+            margin-top: 28px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #999;
+            font-size: 22px;
+        }
+
+        .question {
+            margin: 16px 0;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .qtext {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .options {
+            margin-left: 18px;
+        }
+
+        .option {
+            margin: 3px 0;
+        }
+
+        .answer,
+        .solution {
+            margin-top: 8px;
+            font-size: 13px;
+        }
+
+        .section {
+            page-break-after: always;
+        }
+
+        .section:last-child {
+            page-break-after: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>{{ paper.exam_id }}</h1>
+        <div class="meta">Paper ID: {{ paper.paper_id }} | Generated at: {{ paper.generated_at }}</div>
+    </div>
+
+    {% for section in paper.sections %}
+    <div class="section">
+        <h2>{{ section.subject }}</h2>
+        <div class="meta">Total Questions: {{ section.total_questions }}</div>
+
+        {% for q in section.questions %}
+        <div class="question">
+            <div class="qtext">Q{{ loop.index }}. {{ q.question }}</div>
+            <div class="options">
+                <div class="option">A. {{ q.options[0] }}</div>
+                <div class="option">B. {{ q.options[1] }}</div>
+                <div class="option">C. {{ q.options[2] }}</div>
+                <div class="option">D. {{ q.options[3] }}</div>
+            </div>
+            <div class="answer"><b>Answer:</b> {{ q.answer }}</div>
+            <div class="solution"><b>Solution:</b> {{ q.solution }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</body>
+
+</html>
